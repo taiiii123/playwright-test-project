@@ -176,7 +176,7 @@ test.describe('新機能のテスト', () => {
 ## 🔗 関連ドキュメント
 
 - [Playwright README](../README.md) - 詳細なテスト実行ガイド
-- [Testing Guide](../../TESTING_GUIDE.md) - 全体的なテストガイド
+- [Testing Guide](../../README.md) - 全体的なテストガイド
 
 ---
 
