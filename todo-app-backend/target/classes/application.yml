@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: todo-app-backend
+
+  # データベース設定（MySQL）
+  datasource:
+    url: jdbc:mysql://localhost:3306/tododb
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+
+  # JPA設定
+  jpa:
+    hibernate:
+      ddl-auto: update  # 本番環境では validate に変更
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+        # MySQL固有の設定
+        jdbc:
+          time_zone: Asia/Tokyo
+    open-in-view: false
+
+# サーバー設定
+server:
+  port: 8080
+  error:
+    include-message: always
+
+# JWT設定（Base64エンコードされた256bit以上のシークレットキー）
+jwt:
+  secret: bXlTZWNyZXRLZXlGb3JKd3RUb2tlbkdlbmVyYXRpb25BbmRWYWxpZGF0aW9uMTIzNDU2Nzg5MA==
+  expiration: 86400000 # 24時間（ミリ秒）
+
+# ログ設定
+logging:
+  level:
+    com.example.todoapp: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

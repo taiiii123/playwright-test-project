@@ -1,0 +1,73 @@
+services:
+  # MySQL データベース
+  mysql:
+    image: mysql:8.0
+    container_name: todo-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: todoapp
+      MYSQL_USER: todouser
+      MYSQL_PASSWORD: todopassword
+      LANG: ja_JP.UTF-8
+      LC_ALL: ja_JP.UTF-8
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./todo-app-backend/database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./todo-app-backend/database/test_data.sql:/docker-entrypoint-initdb.d/2-test_data.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - todo-network
+
+  # Spring Boot バックエンド
+  backend:
+    build:
+      context: ./todo-app-backend
+      dockerfile: Dockerfile
+    container_name: todo-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/todoapp?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
+      SPRING_DATASOURCE_USERNAME: todouser
+      SPRING_DATASOURCE_PASSWORD: todopassword
+      JWT_SECRET: bXlTZWNyZXRLZXlGb3JKd3RUb2tlbkdlbmVyYXRpb25BbmRWYWxpZGF0aW9uMTIzNDU2Nzg5MA==
+      JWT_EXPIRATION: 86400000
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - todo-network
+    restart: unless-stopped
+
+  # Vue 3 フロントエンド
+  frontend:
+    build:
+      context: ./todo-app-frontend
+      dockerfile: Dockerfile
+    container_name: todo-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - todo-network
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  todo-network:
+    driver: bridge
