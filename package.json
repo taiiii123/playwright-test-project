@@ -1,0 +1,40 @@
+{
+  "name": "playwright-project",
+  "version": "1.0.0",
+  "description": "Playwright自動テストプロジェクト",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:all-browsers": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:debug": "playwright test --debug",
+    "test:specific": "playwright test",
+    "test:auth": "playwright test auth",
+    "test:todos": "playwright test todos",
+    "report": "playwright show-report",
+    "cleanup": "node cleanup-db.js",
+    "codegen": "playwright codegen http://localhost",
+    "codegen:url": "playwright codegen https://example.com",
+    "codegen:save": "playwright codegen --target javascript -o tests/generated-test.spec.js",
+    "codegen:auth": "playwright codegen --save-storage=auth.json",
+    "codegen:mobile": "playwright codegen --device='iPhone 13'",
+    "install:browsers": "playwright install",
+    "install:deps": "playwright install-deps",
+    "trace": "playwright show-trace",
+    "screenshot": "playwright screenshot https://example.com screenshot.png"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mysql2": "^3.15.3"
+  }
+}
