@@ -1,6 +1,6 @@
 # Playwright テストプロジェクト
 
-[![Playwright Tests](https://github.com/USERNAME/REPO_NAME/actions/workflows/playwright-docker.yml/badge.svg)](https://github.com/USERNAME/REPO_NAME/actions/workflows/playwright-docker.yml)
+[![Playwright Tests](https://github.com/taiiii123/playwright-test-project/actions/workflows/playwright-docker.yml/badge.svg)](https://github.com/taiiii123/playwright-test-project/actions/workflows/playwright-docker.yml)
 
 TodoアプリケーションのE2Eテスト自動化プロジェクトです。
 
