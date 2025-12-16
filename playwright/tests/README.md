@@ -177,7 +177,3 @@ test.describe('新機能のテスト', () => {
 
 - [Playwright README](../README.md) - 詳細なテスト実行ガイド
 - [Testing Guide](../../README.md) - 全体的なテストガイド
-
----
-
-**質問やフィードバックがある場合は、プロジェクトのIssueで報告してください。**
