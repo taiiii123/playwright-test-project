@@ -52,9 +52,7 @@ npm test
 
 ## 📚 ドキュメント
 
-- [📖 詳細テストガイド](TESTING_GUIDE.md) - テストの実行方法と作成ガイド
 - [📁 Playwrightドキュメント](playwright/README.md) - テスト実装の詳細
-- [🧹 データベースクリーンアップ](playwright/DATABASE_CLEANUP.md) - DB管理ガイド
 - [🔄 GitHub Actions](\.github\GITHUB_ACTIONS.md) - CI/CD設定ガイド
 
 ## 🎯 テストの実行方法
@@ -158,8 +156,6 @@ playwright-test-project/
 3. `enableAutoEvidence()` で自動スクリーンショット有効化
 4. `captureTestResult()` で最終結果をキャプチャ
 
-詳細は [TESTING_GUIDE.md](TESTING_GUIDE.md) を参照してください。
-
 ## 🐛 トラブルシューティング
 
 ### アプリケーションに接続できない
@@ -179,26 +175,3 @@ docker-compose restart
 cd playwright
 npm run cleanup
 ```
-
-### ブラウザが見つからない
-
-```bash
-cd playwright
-npm run install:browsers
-```
-
-詳細は [TESTING_GUIDE.md](TESTING_GUIDE.md) のトラブルシューティングセクションを参照してください。
-
-## 🤝 貢献
-
-新しいテストケースやバグ修正の貢献を歓迎します！
-
-1. このリポジトリをフォーク
-2. フィーチャーブランチを作成 (`git checkout -b feature/amazing-test`)
-3. 変更をコミット (`git commit -m 'Add amazing test'`)
-4. ブランチにプッシュ (`git push origin feature/amazing-test`)
-5. プルリクエストを作成
-
-## 📝 ライセンス
-
-このプロジェクトはMITライセンスの下で公開されています。
