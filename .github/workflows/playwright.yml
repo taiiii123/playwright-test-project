@@ -16,14 +16,14 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: rootpassword
-          MYSQL_DATABASE: todoapp
-          MYSQL_USER: todouser
-          MYSQL_PASSWORD: todopassword
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: ${{ vars.DB_NAME }}
+          MYSQL_USER: ${{ secrets.DB_USER }}
+          MYSQL_PASSWORD: ${{ secrets.DB_PASSWORD }}
         ports:
-          - 3309:3306
+          - ${{ vars.DB_PORT }}:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -u root -prootpassword"
+          --health-cmd="mysqladmin ping -h localhost -u root -p${{ secrets.DB_PASSWORD }}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -50,18 +50,18 @@ jobs:
         working-directory: ./todo-app-backend
         run: |
           cat > .env << EOF
-          SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3309/todoapp?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-          SPRING_DATASOURCE_USERNAME=root
-          SPRING_DATASOURCE_PASSWORD=rootpassword
-          JWT_SECRET=mySecretKey12345678901234567890123456789012
-          JWT_EXPIRATION=86400000
+          SPRING_DATASOURCE_URL=jdbc:mysql://${{ vars.DB_HOST }}:${{ vars.DB_PORT }}/${{ vars.DB_NAME }}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+          SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USER }}
+          SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          JWT_EXPIRATION=${{ vars.JWT_EXPIRATION }}
           EOF
 
       - name: Create frontend .env file
         working-directory: ./todo-app-frontend
         run: |
           cat > .env << EOF
-          VITE_API_BASE_URL=http://localhost:8080/api
+          VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL }}
           EOF
 
       - name: Install backend dependencies
@@ -76,7 +76,7 @@ jobs:
         working-directory: ./todo-app-frontend
         run: npx vite build --mode production
         env:
-          VITE_API_BASE_URL: http://localhost:8080/api
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
 
       - name: Start backend
         working-directory: ./todo-app-backend
@@ -114,12 +114,12 @@ jobs:
         working-directory: ./playwright
         run: |
           cat > .env << EOF
-          BASE_URL=http://localhost:3000
-          DB_HOST=localhost
-          DB_USER=root
-          DB_PASSWORD=rootpassword
-          DB_NAME=todoapp
-          DB_PORT=3309
+          BASE_URL=${{ vars.BASE_URL }}
+          DB_HOST=${{ vars.DB_HOST }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_NAME=${{ vars.DB_NAME }}
+          DB_PORT=${{ vars.DB_PORT }}
           SQL_PATH=tests/data/sql
           EOF
 
