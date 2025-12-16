@@ -38,14 +38,14 @@ jobs:
 
       - name: Start Docker containers
         run: |
-          docker-compose up -d
+          docker compose up -d
           # コンテナの起動を待つ
           echo "Waiting for containers to be ready..."
           sleep 45
           echo "All containers are ready!"
 
       - name: Check container status
-        run: docker-compose ps
+        run: docker compose ps
 
       - name: Install Playwright dependencies
         working-directory: ./playwright
@@ -89,12 +89,12 @@ jobs:
         if: failure()
         run: |
           echo "=== MySQL Logs ==="
-          docker-compose logs mysql
+          docker compose logs mysql
           echo "=== Backend Logs ==="
-          docker-compose logs backend
+          docker compose logs backend
           echo "=== Frontend Logs ==="
-          docker-compose logs frontend
+          docker compose logs frontend
 
       - name: Stop Docker containers
         if: always()
-        run: docker-compose down -v
+        run: docker compose down -v
