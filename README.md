@@ -202,7 +202,3 @@ npm run install:browsers
 ## 📝 ライセンス
 
 このプロジェクトはMITライセンスの下で公開されています。
-
----
-
-Happy Testing! 🎉
