@@ -27,7 +27,7 @@ jobs:
         working-directory: ./playwright
         run: |
           cat > .env << EOF
-          BASE_URL=http://localhost
+          BASE_URL=${{ vars.BASE_URL }}
           DB_HOST=localhost
           DB_USER=${{ secrets.DB_USER }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
