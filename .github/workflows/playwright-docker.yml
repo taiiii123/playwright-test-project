@@ -27,12 +27,12 @@ jobs:
         working-directory: ./playwright
         run: |
           cat > .env << EOF
-          BASE_URL=${{ vars.BASE_URL }}
-          DB_HOST=${{ vars.DB_HOST }}
+          BASE_URL=http://localhost
+          DB_HOST=localhost
           DB_USER=${{ secrets.DB_USER }}
           DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           DB_NAME=${{ vars.DB_NAME }}
-          DB_PORT=${{ vars.DB_PORT }}
+          DB_PORT=3309
           SQL_PATH=tests/data/sql
           EOF
 
@@ -43,6 +43,12 @@ jobs:
           echo "Waiting for containers to be ready..."
           sleep 45
           echo "All containers are ready!"
+
+      - name: Wait for frontend to be ready
+        run: |
+          echo "Waiting for frontend to respond..."
+          timeout 60 bash -c 'until curl -f http://localhost > /dev/null 2>&1; do sleep 2; echo "Waiting..."; done' || echo "Timeout waiting for frontend"
+          echo "Frontend is ready!"
 
       - name: Check container status
         run: docker compose ps
