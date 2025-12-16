@@ -203,10 +203,6 @@ npm run install:browsers
 
 このプロジェクトはMITライセンスの下で公開されています。
 
-## 📞 サポート
-
-質問やフィードバックがある場合は、Issueで報告してください。
-
 ---
 
 Happy Testing! 🎉
