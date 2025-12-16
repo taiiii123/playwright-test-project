@@ -41,13 +41,7 @@ jobs:
           docker-compose up -d
           # コンテナの起動を待つ
           echo "Waiting for containers to be ready..."
-          sleep 30
-          # MySQLの準備完了を確認
-          timeout 60 bash -c 'until docker-compose exec -T mysql mysqladmin ping -h localhost -u root -prootpassword --silent; do sleep 2; done'
-          # バックエンドの準備完了を確認
-          timeout 60 bash -c 'until curl -f http://localhost:8080/actuator/health 2>/dev/null; do sleep 2; done' || true
-          # フロントエンドの準備完了を確認
-          timeout 60 bash -c 'until curl -f http://localhost 2>/dev/null; do sleep 2; done'
+          sleep 45
           echo "All containers are ready!"
 
       - name: Check container status

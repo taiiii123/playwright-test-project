@@ -208,19 +208,8 @@ README.mdにテスト結果のバッジを追加：
 ![Playwright Tests](https://github.com/ユーザー名/リポジトリ名/actions/workflows/playwright-docker.yml/badge.svg)
 ```
 
-## 🚀 次のステップ
-
-1. **通知の設定**: Slackなどへの通知を追加
-2. **並列実行**: 複数のブラウザで並列テスト
-3. **定期実行**: cronでスケジュール実行
-4. **デプロイ**: テスト成功後に自動デプロイ
-
 ## 参考リンク
 
 - [GitHub Actions公式ドキュメント](https://docs.github.com/ja/actions)
 - [Playwright CI設定ガイド](https://playwright.dev/docs/ci)
 - [Docker Composeドキュメント](https://docs.docker.com/compose/)
-
----
-
-質問やフィードバックがある場合は、Issueで報告してください。
